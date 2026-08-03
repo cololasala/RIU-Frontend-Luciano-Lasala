@@ -1,1 +1,7 @@
-<p>Hola</p>
+<h1 class="title">Bienvenido a la página de super heroes</h1>
+
+@for (superHeroe of superHeroes(); track superHeroe; let i = $index) {
+<li>{{ superHeroe.name }} - index {{ i }}</li>
+} @empty {
+<li>There are no super heroes.</li>
+}
