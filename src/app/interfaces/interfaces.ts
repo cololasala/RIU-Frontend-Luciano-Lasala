@@ -1,7 +1,3 @@
-export interface ISuperHeroeResponse {
-  superHeroes: ISuperHeroe[];
-}
-
 export interface ISuperHeroe {
   id: number;
   name: string;
