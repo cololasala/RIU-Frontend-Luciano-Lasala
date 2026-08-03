@@ -40,30 +40,32 @@ export class SuperHeroeService {
   }
 
   getSuperHeroeByName(superHeroeName: string): ISuperHeroe[] | [] {
-    return this.getSuperHeroes().filter((data) => data.name.includes(superHeroeName));
+    return this.getSuperHeroes().filter((data) =>
+      data.name.toLocaleLowerCase().includes(superHeroeName.toLocaleLowerCase()),
+    );
   }
 
-  createSuperHeroe(superHeroe: ISuperHeroe): ISuperHeroe[] {
-    this.superHeroes.update((superHeroes) => [...superHeroes, superHeroe]);
+  createSuperHeroe(superHeroe: ISuperHeroe): ISuperHeroe {
+    const nextId = this.superHeroes().length + 1;
+    const newSuperHero = { ...superHeroe, id: nextId };
+    this.superHeroes.update((superHeroes) => [...superHeroes, newSuperHero]);
 
-    return this.superHeroes();
+    return newSuperHero;
   }
 
-  updateSuperHero(superHeroeUpdated: ISuperHeroe): ISuperHeroe[] {
+  updateSuperHero(superHeroeUpdated: ISuperHeroe): ISuperHeroe {
     this.superHeroes.update((superHeroes) =>
       superHeroes.map((superHeroe) =>
         superHeroe.id === superHeroeUpdated.id ? superHeroeUpdated : superHeroe,
       ),
     );
 
-    return this.superHeroes();
+    return superHeroeUpdated;
   }
 
-  deleteSuperHeroe(superHeroeiId: number): ISuperHeroe[] {
+  deleteSuperHeroe(superHeroeId: number): void {
     this.superHeroes.update((superHeroes) =>
-      superHeroes.filter((superHero) => superHero.id !== superHeroeiId),
+      superHeroes.filter((superHero) => superHero.id !== superHeroeId),
     );
-
-    return this.superHeroes();
   }
 }

@@ -1,0 +1,53 @@
+<div class="table-top">
+  <app-super-heroes-input-serch [(searchValue)]="searchedValue"></app-super-heroes-input-serch>
+  <button onclick="goToAddSuperHero()">Add super heroe</button>
+</div>
+
+<table mat-table [dataSource]="superHeroesData">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+
+    <td mat-cell *matCellDef="let superHero">
+      {{ superHero.id }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+
+    <td mat-cell *matCellDef="let superHero">
+      {{ superHero.name }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="power">
+    <th mat-header-cell *matHeaderCellDef>Power</th>
+
+    <td mat-cell *matCellDef="let superHero">
+      {{ superHero.power }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+
+    <td mat-cell *matCellDef="let superHero">
+      {{ superHero.description }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+
+    <td mat-cell *matCellDef="let superHero">
+      <button>Edit</button>
+      <button>Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+
+  <tr mat-row *matRowDef="let row; columns: columns"></tr>
+</table>
+
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 2, 5]" showFirstLastButtons> </mat-paginator>

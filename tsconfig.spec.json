@@ -11,5 +11,5 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-  ]
+, "src/app/components/super-heroes-table/super-heroes-table.spec.component.ts"  ]
 }

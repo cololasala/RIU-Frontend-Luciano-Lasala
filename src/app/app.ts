@@ -1,27 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ISuperHeroe } from './interfaces/interfaces';
-import { SuperHeroeService } from './services/super-heroe.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  imports: [RouterOutlet],
 })
-export class App implements OnInit {
-  superHeroeService = inject(SuperHeroeService)
-  superHeroes = signal<ISuperHeroe[]>([]);
-
-   ngOnInit(): void {
-    this.getSuperHeroes();
-   }
-
-  getSuperHeroes = () => {
-    this.superHeroeService.getSuperHeroes().subscribe({
-      next: (data) => {
-        this.superHeroes.set(data.superHeroes);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }
-    });
-  }
-}
+export class App {}
