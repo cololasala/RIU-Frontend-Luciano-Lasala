@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
-import { ISuperHeroe } from '../interfaces/interfaces';
+import { ISuperHero } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root',
 })
 export class SuperHeroeService {
-  superHeroes = signal<ISuperHeroe[]>([
+  superHeroes = signal<ISuperHero[]>([
     {
       id: 1,
       name: 'Superman',
@@ -31,41 +31,41 @@ export class SuperHeroeService {
     },
   ]);
 
-  getSuperHeroes(): ISuperHeroe[] {
+  getSuperHeroes(): ISuperHero[] {
     return this.superHeroes();
   }
 
-  getSuperHeroeById(superHeroeId: number): ISuperHeroe | undefined {
+  getSuperHeroeById(superHeroeId: number): ISuperHero | undefined {
     return this.getSuperHeroes().find((data) => data.id === superHeroeId);
   }
 
-  getSuperHeroeByName(superHeroeName: string): ISuperHeroe[] | [] {
+  getSuperHeroeByName(superHeroName: string): ISuperHero[] | [] {
     return this.getSuperHeroes().filter((data) =>
-      data.name.toLocaleLowerCase().includes(superHeroeName.toLocaleLowerCase()),
+      data.name.toLocaleLowerCase().includes(superHeroName.toLocaleLowerCase()),
     );
   }
 
-  createSuperHeroe(superHeroe: ISuperHeroe): ISuperHeroe {
-    const nextId = this.superHeroes().length + 1;
-    const newSuperHero = { ...superHeroe, id: nextId };
+  createSuperHero(superHero: ISuperHero): ISuperHero {
+    const newId = this.superHeroes().length + 1;
+    const newSuperHero = { ...superHero, id: newId };
     this.superHeroes.update((superHeroes) => [...superHeroes, newSuperHero]);
 
     return newSuperHero;
   }
 
-  updateSuperHero(superHeroeUpdated: ISuperHeroe): ISuperHeroe {
+  updateSuperHero(superHeroUpdated: ISuperHero): ISuperHero {
     this.superHeroes.update((superHeroes) =>
       superHeroes.map((superHeroe) =>
-        superHeroe.id === superHeroeUpdated.id ? superHeroeUpdated : superHeroe,
+        superHeroe.id === superHeroUpdated.id ? superHeroUpdated : superHeroe,
       ),
     );
 
-    return superHeroeUpdated;
+    return superHeroUpdated;
   }
 
-  deleteSuperHeroe(superHeroeId: number): void {
+  deleteSuperHeroe(superHeroId: number): void {
     this.superHeroes.update((superHeroes) =>
-      superHeroes.filter((superHero) => superHero.id !== superHeroeId),
+      superHeroes.filter((superHero) => superHero.id !== superHeroId),
     );
   }
 }

@@ -1,6 +1,6 @@
 <div class="table-top">
   <app-super-heroes-input-serch [(searchValue)]="searchedValue"></app-super-heroes-input-serch>
-  <button onclick="goToAddSuperHero()">Add super heroe</button>
+  <button matButton (click)="goToAddSuperHero()">Add super heroe</button>
 </div>
 
 <table mat-table [dataSource]="superHeroesData">

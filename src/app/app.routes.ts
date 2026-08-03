@@ -8,13 +8,12 @@ export const routes: Routes = [
     component: SuperHeroesTable,
   },
   {
-    path: 'add-hero',
+    path: 'add-super-heroe',
     component: AddHeroComponent,
   },
   {
-    path: 'edit-hero',
+    path: 'edit-super-heroe/:id',
     component: AddHeroComponent,
-    data: {}
   },
   {
     path: '**',
