@@ -1,6 +1,8 @@
 <div class="table-top">
   <app-super-heroes-input-serch [(searchValue)]="searchedValue"></app-super-heroes-input-serch>
-  <button matButton (click)="goToAddSuperHero()">Add super heroe</button>
+  <button mat-raised-button (click)="goToAddSuperHero()" style="margin-left: 4px">
+    Add super heroe
+  </button>
 </div>
 
 <table mat-table [dataSource]="superHeroesData">
@@ -40,8 +42,8 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
 
     <td mat-cell *matCellDef="let superHero">
-      <button>Edit</button>
-      <button>Delete</button>
+      <button mat-raised-button style="margin-right: 8px">Edit</button>
+      <button mat-raised-button (click)="openDeleteDialog(superHero)">Delete</button>
     </td>
   </ng-container>
 

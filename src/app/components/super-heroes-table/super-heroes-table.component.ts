@@ -6,6 +6,8 @@ import { ISuperHero } from '../../interfaces/interfaces';
 import { SuperHeroeService } from '../../services/super-heroe.service';
 import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteHeroDialogComponent } from '../delete-hero/delete-hero-dialog.component';
 
 @Component({
   selector: 'app-super-heroes-table',
@@ -17,6 +19,7 @@ import { MatButton } from '@angular/material/button';
 export class SuperHeroesTable implements OnInit, AfterViewInit {
   columns: string[] = ['id', 'name', 'power', 'description', 'actions'];
   superHeroesData = new MatTableDataSource<ISuperHero>();
+  dialog = inject(MatDialog);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private superHeroeService = inject(SuperHeroeService);
@@ -47,4 +50,19 @@ export class SuperHeroesTable implements OnInit, AfterViewInit {
   goToAddSuperHero = () => {
     this.router.navigate(['/add-super-heroe']);
   };
+
+  openDeleteDialog(superHero: ISuperHero) {
+    const dialogRef = this.dialog.open(DeleteHeroDialogComponent, {
+      data: {
+        superHeroName: superHero.name,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      if (result) {
+        this.superHeroeService.deleteSuperHeroe(superHero.id);
+        this.getSuperHeroes();
+      }
+    });
+  }
 }

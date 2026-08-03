@@ -43,8 +43,10 @@
         </mat-form-field>
 
         <mat-card-actions align="end">
-          <button matButton (click)="onCancel()">Cancel</button>
-          <button matButton type="submit">Create</button>
+          <button (click)="onCancel()" mat-raised-button style="margin-right: 8px">Cancel</button>
+          <button type="submit" class="btn-success" mat-raised-button>
+            Create
+          </button>
         </mat-card-actions>
       </form>
     </mat-card-content>
