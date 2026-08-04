@@ -1,0 +1,18 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 700px;
+}
+
+mat-card-title {
+  padding-bottom: 6px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

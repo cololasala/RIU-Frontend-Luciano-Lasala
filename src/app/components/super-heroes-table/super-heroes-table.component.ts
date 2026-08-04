@@ -48,7 +48,11 @@ export class SuperHeroesTable implements OnInit, AfterViewInit {
   });
 
   goToAddSuperHero = () => {
-    this.router.navigate(['/add-super-heroe']);
+    this.router.navigate(['/add-super-hero']);
+  };
+
+  goToEditSuperHero = (superHero: ISuperHero) => {
+    this.router.navigate(['/edit-super-hero', superHero.id]);
   };
 
   openDeleteDialog(superHero: ISuperHero) {

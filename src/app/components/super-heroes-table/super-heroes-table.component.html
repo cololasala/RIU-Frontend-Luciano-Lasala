@@ -1,7 +1,7 @@
 <div class="table-top">
   <app-super-heroes-input-serch [(searchValue)]="searchedValue"></app-super-heroes-input-serch>
-  <button mat-raised-button (click)="goToAddSuperHero()" style="margin-left: 4px">
-    Add super heroe
+  <button mat-raised-button (click)="goToAddSuperHero()" [class]="'add-super-hero-button'">
+    Add super hero
   </button>
 </div>
 
@@ -42,7 +42,9 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
 
     <td mat-cell *matCellDef="let superHero">
-      <button mat-raised-button style="margin-right: 8px">Edit</button>
+      <button mat-raised-button style="margin-right: 8px" (click)="goToEditSuperHero(superHero)">
+        Edit
+      </button>
       <button mat-raised-button (click)="openDeleteDialog(superHero)">Delete</button>
     </td>
   </ng-container>

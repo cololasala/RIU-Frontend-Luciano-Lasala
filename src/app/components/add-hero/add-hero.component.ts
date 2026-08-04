@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
@@ -24,12 +30,15 @@ export class AddHeroComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private superHeroeService = inject(SuperHeroeService);
+  superHeroForm: FormGroup;
 
-  superHeroForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(6)]],
-    power: ['', [Validators.required, Validators.minLength(6)]],
-    description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-  });
+  constructor() {
+    this.superHeroForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(6)]],
+      power: ['', [Validators.required, Validators.minLength(6)]],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+    });
+  }
 
   onSubmit() {
     if (this.superHeroForm.valid) {
@@ -53,15 +62,15 @@ export class AddHeroComponent {
   };
 
   //Getters
-  get name() {
-    return this.superHeroForm.controls.name;
+  get name(): AbstractControl {
+    return this.superHeroForm.get('name')!;
   }
 
-  get power() {
-    return this.superHeroForm.controls.power;
+  get power(): AbstractControl {
+    return this.superHeroForm.get('power')!;
   }
 
-  get description() {
-    return this.superHeroForm.controls.description;
+  get description(): AbstractControl {
+    return this.superHeroForm.get('description')!;
   }
 }
