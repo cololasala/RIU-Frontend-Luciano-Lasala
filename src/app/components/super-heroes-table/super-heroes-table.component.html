@@ -1,5 +1,6 @@
 <div class="table-top">
-  <app-super-heroes-input-serch [(searchValue)]="searchedValue"></app-super-heroes-input-serch>
+  <app-super-heroes-input-search-autocomplete [allHeroes]="allSuperHeroes()" (selectedHero)="selectedHero($event)"/>
+  <!-- <app-super-heroes-input-serch [(searchValue)]="searchedValue" /> -->
   <button mat-raised-button (click)="goToAddSuperHero()" [class]="'add-super-hero-button'">
     Add super hero
   </button>
@@ -51,7 +52,7 @@
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
 
-  <tr mat-row *matRowDef="let row; columns: columns"></tr> 
+  <tr mat-row *matRowDef="let row; columns: columns"></tr>
 </table>
 
 <mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 2, 5]" showFirstLastButtons> </mat-paginator>

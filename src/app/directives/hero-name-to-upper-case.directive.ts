@@ -3,6 +3,7 @@ import { Directive } from '@angular/core';
 @Directive({
   selector: '[appHeroNameToUpperCase]',
   host: {
+    '(focus)': 'this.transformToUpperCase($event)',
     '(input)': 'this.transformToUpperCase($event)',
   },
 })

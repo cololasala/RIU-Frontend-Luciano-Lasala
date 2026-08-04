@@ -1,0 +1,55 @@
+import { Component, input, output } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import { ISuperHero } from '../../interfaces/interfaces';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+@Component({
+  selector: 'app-super-heroes-input-search-autocomplete',
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+  ],
+  templateUrl: './super-heroes-input-search-autocomplete.component.html',
+  styleUrl: './super-heroes-input-search-autocomplete.component.css',
+  standalone: true,
+})
+export class SuperHeroesInputSearchAutocompleteComponent {
+  heroControl = new FormControl('');
+  allHeroes = input<ISuperHero[]>([]);
+  selectedHero = output<string>();
+  filteredHeroes: Observable<ISuperHero[]>;
+
+  constructor() {
+    this.filteredHeroes = this.heroControl.valueChanges.pipe(
+      startWith(''),
+      map((heroName) => this.filterHero(heroName || '')),
+    );
+
+    this.heroControl.valueChanges.subscribe((heroName) => {
+      if (heroName === '') {
+        this.selectedHero.emit('');
+      }
+    });
+  }
+
+  filterHero(heroName: string): ISuperHero[] {
+    const filterValue = heroName.toLowerCase();
+    return this.allHeroes()!.filter((hero: ISuperHero) =>
+      hero.name.toLowerCase()?.includes(filterValue),
+    );
+  }
+
+  onSelected = (selectedHero: string) => {
+    if (selectedHero) {
+      this.selectedHero.emit(selectedHero);
+    }
+  };
+}

@@ -1,0 +1,22 @@
+<form class="example-form">
+  <mat-form-field class="search-autocomplete-input">
+    <mat-label>Filter by super hero name</mat-label>
+    <input
+      type="text"
+      placeholder="Select super hero"
+      aria-label="Select super hero"
+      matInput
+      [formControl]="heroControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete
+      autoActiveFirstOption
+      #auto="matAutocomplete"
+      (optionSelected)="onSelected($event.option.value)"
+    >
+      @for (superHero of filteredHeroes | async; track superHero.id) {
+        <mat-option [value]="superHero.name">{{ superHero.name }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
