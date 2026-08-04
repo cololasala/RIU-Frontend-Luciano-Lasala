@@ -27,3 +27,16 @@ describe('SuperHeroeService get all Super heroes', () => {
     expect(service).toBeTruthy();
   });
 });
+
+describe('SuperHeroeService one super hero by name', () => {
+  let service: SuperHeroeService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(SuperHeroeService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
