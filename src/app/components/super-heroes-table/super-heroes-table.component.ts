@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteHeroDialogComponent } from '../delete-hero/delete-hero-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-super-heroes-table',
@@ -17,15 +18,14 @@ import { DeleteHeroDialogComponent } from '../delete-hero/delete-hero-dialog.com
   standalone: true,
 })
 export class SuperHeroesTable implements OnInit, AfterViewInit {
+  private toast = inject(ToastrService);
+  private superHeroeService = inject(SuperHeroeService);
+  private router = inject(Router);
   columns: string[] = ['id', 'name', 'power', 'description', 'actions'];
   superHeroesData = new MatTableDataSource<ISuperHero>();
   dialog = inject(MatDialog);
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  private superHeroeService = inject(SuperHeroeService);
-  private router = inject(Router);
-
   searchedValue = signal<string>('');
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
     this.getSuperHeroes();
@@ -64,7 +64,12 @@ export class SuperHeroesTable implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
-        this.superHeroeService.deleteSuperHeroe(superHero.id);
+        try {
+          this.superHeroeService.deleteSuperHeroe(superHero.id);
+          this.toast.success('Super hero deleted successfully');
+        } catch (error) {
+          this.toast.error('Error at deleting super hero');
+        }
         this.getSuperHeroes();
       }
     });

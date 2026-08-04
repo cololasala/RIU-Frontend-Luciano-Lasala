@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { SuperHeroeService } from '../../services/super-heroe.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-hero',
   imports: [
@@ -30,6 +31,7 @@ export class AddHeroComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private superHeroeService = inject(SuperHeroeService);
+  private toast = inject(ToastrService);
   superHeroForm: FormGroup;
 
   constructor() {
@@ -50,9 +52,10 @@ export class AddHeroComponent {
           description: this.description.value!,
         };
         this.superHeroeService.createSuperHero(newSuperHero);
+        this.toast.success('Super hero created successfully');
         this.router.navigate(['/']);
       } catch (error) {
-        console.error('Error creating super hero', error);
+        this.toast.error('Error at creating super hero');
       }
     }
   }
