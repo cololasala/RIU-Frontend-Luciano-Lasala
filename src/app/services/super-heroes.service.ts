@@ -63,7 +63,7 @@ export class SuperHeroesService {
     return superHeroUpdated;
   }
 
-  deleteSuperHeroe(superHeroId: number): void {
+  deleteSuperHero(superHeroId: number): void {
     this.superHeroes.update((superHeroes) =>
       superHeroes.filter((superHero) => superHero.id !== superHeroId),
     );

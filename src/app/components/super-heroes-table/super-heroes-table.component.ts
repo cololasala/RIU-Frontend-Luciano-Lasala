@@ -72,7 +72,7 @@ export class SuperHeroesTable implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
         try {
-          this.superHeroesService.deleteSuperHeroe(superHero.id);
+          this.superHeroesService.deleteSuperHero(superHero.id);
           this.toast.success('Super hero deleted successfully');
         } catch (error) {
           this.toast.error('Error at deleting super hero');
