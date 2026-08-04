@@ -13,15 +13,6 @@ describe('SuperHeroesService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-});
-
-describe('Get all Super heroes', () => {
-  let service: SuperHeroesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperHeroesService);
-  });
 
   it('should return all super heroes', () => {
     const superHeroes = service.getSuperHeroes();
@@ -52,15 +43,6 @@ describe('Get all Super heroes', () => {
       },
     ]);
   });
-});
-
-describe('Get one super hero by name', () => {
-  let service: SuperHeroesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperHeroesService);
-  });
 
   it('should return a super hero by name', () => {
     const superHero = service.getSuperHeroesByName('Superman');
@@ -73,15 +55,6 @@ describe('Get one super hero by name', () => {
       },
     ]);
   });
-});
-
-describe('Get one super hero by name', () => {
-  let service: SuperHeroesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperHeroesService);
-  });
 
   it('should return a super hero by name', () => {
     const superHero = service.getSuperHeroesByName('Superman');
@@ -93,15 +66,6 @@ describe('Get one super hero by name', () => {
         description: 'El hombre de acero',
       },
     ]);
-  });
-});
-
-describe('Create a new super hero', () => {
-  let service: SuperHeroesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperHeroesService);
   });
 
   it('should create a new super hero', () => {
@@ -115,15 +79,6 @@ describe('Create a new super hero', () => {
     const allSuperHeroes = service.getSuperHeroes();
     expect(allSuperHeroes).toEqual(expect.arrayContaining([expect.objectContaining(newSuperHero)]));
   });
-});
-
-describe('Update a super hero', () => {
-  let service: SuperHeroesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperHeroesService);
-  });
 
   it('should update a super hero', () => {
     const updatedSuperHero = {
@@ -134,16 +89,9 @@ describe('Update a super hero', () => {
     };
     service.updateSuperHero(updatedSuperHero);
     const allSuperHeroes = service.getSuperHeroes();
-    expect(allSuperHeroes).toEqual(expect.arrayContaining([expect.objectContaining(updatedSuperHero)]));
-  });
-});
-
-describe('Delete a super hero', () => {
-  let service: SuperHeroesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperHeroesService);
+    expect(allSuperHeroes).toEqual(
+      expect.arrayContaining([expect.objectContaining(updatedSuperHero)]),
+    );
   });
 
   it('should delete a super hero', () => {
