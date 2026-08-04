@@ -10,6 +10,7 @@ import { Directive } from '@angular/core';
 export class HeroNameToUpperCase {
   transformToUpperCase = (event: Event) => {
     const inputElement = event.target as HTMLInputElement;
-    inputElement.value = inputElement.value.toUpperCase();
+    inputElement.value =
+      String(inputElement.value).charAt(0).toUpperCase() + String(inputElement.value).slice(1);
   };
 }

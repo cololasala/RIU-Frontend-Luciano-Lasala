@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
 })
 export class SuperHeroesInputSearchAutocompleteComponent {
-  heroControl = new FormControl('');
+  heroControl = new FormControl<string>('');
   allHeroes = input<ISuperHero[]>([]);
   selectedHero = output<string>();
   filteredHeroes: Observable<ISuperHero[]>;
@@ -48,8 +48,6 @@ export class SuperHeroesInputSearchAutocompleteComponent {
   }
 
   onSelected = (selectedHero: string) => {
-    if (selectedHero) {
-      this.selectedHero.emit(selectedHero);
-    }
+    this.selectedHero.emit(selectedHero);
   };
 }
