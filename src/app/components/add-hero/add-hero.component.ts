@@ -12,6 +12,7 @@ import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/in
 import { Router } from '@angular/router';
 import { SuperHeroeService } from '../../services/super-heroe.service';
 import { ToastrService } from 'ngx-toastr';
+import { HeroNameToUpperCase } from '../../directives/hero-name-to-upper-case.directive';
 @Component({
   selector: 'app-add-hero',
   imports: [
@@ -22,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     MatLabel,
     MatError,
+    HeroNameToUpperCase,
   ],
   templateUrl: './add-hero.component.html',
   styleUrl: './add-hero.component.css',

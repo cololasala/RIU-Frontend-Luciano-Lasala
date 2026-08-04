@@ -7,7 +7,13 @@
       <form [formGroup]="superHeroForm" (ngSubmit)="onSubmit()" class="form-container">
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput type="name" formControlName="name" placeholder="Name" />
+          <input
+            appHeroNameToUpperCase
+            matInput
+            type="name"
+            formControlName="name"
+            placeholder="Name"
+          />
           @if (name.hasError('required')) {
             <mat-error>Name is required</mat-error>
           }
@@ -44,9 +50,7 @@
 
         <mat-card-actions align="end">
           <button (click)="onCancel()" mat-raised-button style="margin-right: 8px">Cancel</button>
-          <button type="submit" mat-raised-button>
-            Create
-          </button>
+          <button type="submit" mat-raised-button>Create</button>
         </mat-card-actions>
       </form>
     </mat-card-content>

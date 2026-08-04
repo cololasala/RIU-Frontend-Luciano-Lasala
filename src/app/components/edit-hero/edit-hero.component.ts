@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { ToastrService } from 'ngx-toastr';
+import { HeroNameToUpperCase } from '../../directives/hero-name-to-upper-case.directive';
 
 @Component({
   selector: 'app-edit-hero',
@@ -25,6 +26,7 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     MatLabel,
     MatError,
+    HeroNameToUpperCase
   ],
   templateUrl: './edit-hero.component.html',
   styleUrl: './edit-hero.component.css',
