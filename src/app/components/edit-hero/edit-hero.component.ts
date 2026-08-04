@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SuperHeroeService } from '../../services/super-heroe.service';
+import { SuperHeroesService } from '../../services/super-heroes.service';
 import { ISuperHero } from '../../interfaces/interfaces';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -36,7 +36,7 @@ export class EditHeroComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
-  private superHeroeService = inject(SuperHeroeService);
+  private SuperHeroesService = inject(SuperHeroesService);
   private toast = inject(ToastrService);
   superHeroForm: FormGroup;
 
@@ -57,7 +57,7 @@ export class EditHeroComponent implements OnInit {
 
   getSuperHeroeById() {
     const superHeroeId = Number(this.route.snapshot.paramMap.get('id'));
-    const superHeroe = this.superHeroeService.getSuperHeroeById(superHeroeId);
+    const superHeroe = this.SuperHeroesService.getSuperHeroeById(superHeroeId);
     this.superHeroToEdit.set(superHeroe);
   }
 
@@ -82,7 +82,7 @@ export class EditHeroComponent implements OnInit {
           power: this.power.value!,
           description: this.description.value!,
         };
-        this.superHeroeService.updateSuperHero(editSuperHero);
+        this.SuperHeroesService.updateSuperHero(editSuperHero);
         this.toast.success('Super hero updated successfully');
         this.router.navigate(['/']);
       } catch (error) {

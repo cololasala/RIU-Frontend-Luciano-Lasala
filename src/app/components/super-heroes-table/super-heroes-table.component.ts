@@ -2,7 +2,7 @@ import { AfterViewInit, Component, effect, inject, OnInit, signal, ViewChild } f
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ISuperHero } from '../../interfaces/interfaces';
-import { SuperHeroeService } from '../../services/super-heroe.service';
+import { SuperHeroesService } from '../../services/super-heroes.service';
 import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,7 +24,7 @@ import { SuperHeroesInputSearchAutocompleteComponent } from '../super-heroes-inp
 })
 export class SuperHeroesTable implements OnInit, AfterViewInit {
   private toast = inject(ToastrService);
-  private superHeroeService = inject(SuperHeroeService);
+  private superHeroesService = inject(SuperHeroesService);
   private router = inject(Router);
   columns: string[] = ['id', 'name', 'power', 'description', 'actions'];
   superHeroesData = new MatTableDataSource<ISuperHero>();
@@ -38,25 +38,17 @@ export class SuperHeroesTable implements OnInit, AfterViewInit {
   }
 
   getSuperHeroes = () => {
-    this.superHeroesData.data = this.superHeroeService.getSuperHeroes();
-    this.allSuperHeroes.set(this.superHeroeService.getSuperHeroes());
+    this.superHeroesData.data = this.superHeroesService.getSuperHeroes();
+    this.allSuperHeroes.set(this.superHeroesService.getSuperHeroes());
   };
 
   ngAfterViewInit() {
     this.superHeroesData.paginator = this.paginator;
   }
 
-  onSearched = effect(() => {
-    if (this.searchedValue()) {
-      this.superHeroesData.data = this.superHeroeService.getSuperHeroeByName(this.searchedValue());
-    } else {
-      this.getSuperHeroes();
-    }
-  });
-
   selectedHero = (selectedHero: string) => {
     if (selectedHero) {
-      this.superHeroesData.data = this.superHeroeService.getSuperHeroeByName(selectedHero);
+      this.superHeroesData.data = this.superHeroesService.getSuperHeroesByName(selectedHero);
     } else {
       this.getSuperHeroes();
     }
@@ -80,7 +72,7 @@ export class SuperHeroesTable implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
         try {
-          this.superHeroeService.deleteSuperHeroe(superHero.id);
+          this.superHeroesService.deleteSuperHeroe(superHero.id);
           this.toast.success('Super hero deleted successfully');
         } catch (error) {
           this.toast.error('Error at deleting super hero');

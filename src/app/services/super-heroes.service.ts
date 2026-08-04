@@ -3,7 +3,7 @@ import { ISuperHero } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root',
 })
-export class SuperHeroeService {
+export class SuperHeroesService {
   superHeroes = signal<ISuperHero[]>([
     {
       id: 1,
@@ -39,7 +39,7 @@ export class SuperHeroeService {
     return this.getSuperHeroes().find((data) => data.id === superHeroeId);
   }
 
-  getSuperHeroeByName(superHeroName: string): ISuperHero[] | [] {
+  getSuperHeroesByName(superHeroName: string): ISuperHero[] | [] {
     return this.getSuperHeroes().filter((data) =>
       data.name.toLocaleLowerCase().includes(superHeroName.toLocaleLowerCase()),
     );
