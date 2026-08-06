@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { ISuperHero } from '../../interfaces/interfaces';
@@ -22,16 +22,13 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
 })
 export class SuperHeroesInputSearchAutocompleteComponent {
-  heroControl = new FormControl<string>('');
+  heroControl = new FormControl<string>({ value: '', disabled: false });
   allHeroes = input<ISuperHero[]>([]);
   selectedHero = output<string>();
   filteredHeroes: Observable<ISuperHero[]>;
 
   constructor() {
-    this.filteredHeroes = this.heroControl.valueChanges.pipe(
-      startWith(''),
-      map((heroName) => this.filterHero(heroName || '')),
-    );
+    this.filteredHeroes = this.checkSearch();
 
     this.heroControl.valueChanges.subscribe((heroName) => {
       if (heroName === '') {
@@ -39,6 +36,22 @@ export class SuperHeroesInputSearchAutocompleteComponent {
       }
     });
   }
+
+  onUpdateHeroes = effect(() => {
+    this.allHeroes();
+    this.heroControl.setValue('');
+    if (this.allHeroes().length === 0) {
+      this.heroControl.disable();
+    }
+    this.filteredHeroes = this.checkSearch();
+  });
+
+  checkSearch = () => {
+    return this.heroControl.valueChanges.pipe(
+      startWith(''),
+      map((heroName) => this.filterHero(heroName || '')),
+    );
+  };
 
   filterHero(heroName: string): ISuperHero[] {
     const filterValue = heroName.toLowerCase();

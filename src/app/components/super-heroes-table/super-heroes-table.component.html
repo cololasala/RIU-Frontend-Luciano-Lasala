@@ -53,6 +53,12 @@
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
 
   <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+   <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="columns.length" [style.textAlign]="'center'">
+      No super heroes found, add a new super hero to see here.
+    </td>
+  </tr>
 </table>
 
 <mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 2, 5]" showFirstLastButtons> </mat-paginator>
